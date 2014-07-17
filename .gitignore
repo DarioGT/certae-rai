@@ -2,10 +2,9 @@
 *.pyc
 *.pyo
 *.bak
-.project
-.pydevproject
+
 .settings
-db.sqlite3
 *all-classes.js
+
+media/**
 output/**
-data/**static/extjs
