@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'certae.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PPATH, 'db.sqlite3'),
+        'NAME': os.path.join(PPATH, 'db','testproto.db'),
     }
 }
 
