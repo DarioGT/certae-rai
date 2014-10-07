@@ -37,12 +37,10 @@ def doMatrixRacc( modelAdmin,request, queryset, detKeys, parameters):
     from rai.actions.racMatrix import doMatrixRaccordement
 
     try:
-        doMatrixRaccordement(  modelAdmin, request, queryset, detKeys, parameters  )
+        return doMatrixRaccordement(  modelAdmin, request, queryset, detKeys, parameters  )
     except Exception as e:
         traceback.print_exc()
         return  {'success':False, 'message' : 'Generation error' }
-    return {'success':True, 'message' :  'Ok ...' }
-
 
 
 
