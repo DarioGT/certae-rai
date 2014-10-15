@@ -1,0 +1,419 @@
+{
+    "__ptType": "pcl",
+    "updateTime": "2014-10-15 15:31:46",
+    "description": "Modele",
+    "shortTitle": "Modele",
+    "viewIcon": "icon-1",
+    "metaVersion": "14.0201",
+    "viewEntity": "rai.Modele",
+    "idProperty": "id",
+    "actions": [{
+        "__ptType": "actionDef",
+        "selectionMode": "details",
+        "name": "doMatrixRacc",
+        "actionParams": [],
+        "menuText": "doMatrixRacc"
+    }],
+    "detailsConfig": [{
+        "__ptType": "detailDef",
+        "detailField": "mod_modrac1__pk",
+        "conceptDetail": "rai.ModeleRaccordement",
+        "detailName": "mod_modrac1",
+        "menuText": "Mod\u00e8les raccord\u00e9s",
+        "masterField": "pk"
+    }, {
+        "__ptType": "detailDef",
+        "menuText": "Entite.entite_mod",
+        "conceptDetail": "rai.Entite",
+        "detailField": "entite_mod__pk",
+        "masterField": "pk",
+        "detailName": "entites"
+    }],
+    "sheetConfig": [{
+        "__ptType": "sheetDef",
+        "sheetType": "showPrint",
+        "templateEr": "<h1> BaseER {{__str__}}</h1><br>",
+        "template": "<h1> Base {{__str__}}</h1><br>",
+
+        "templateBb": "** Start report",
+        "templateAb": "** End report",
+
+        "name": "xxxx",
+        "sheetDetails": [{
+            "__ptType": "sheetDetail",
+            "name": "mod_modrac1",
+            "detailName": "mod_modrac1",
+            "templateBb": "List of {{detailName}} <ul>",
+            "templateEr": "<li> detail er {{__str__}} </li>",
+            "templateAb": "</ul><hr>",
+            "sheetDetails": []
+        }]
+    }],
+    "gridConfig": {
+        "__ptType": "gridConfig",
+        "exportCsv": true,
+        "listDisplay": ["__str__", "nom_modele"],
+        "baseFilter": [],
+        "initialFilter": [],
+        "initialSort": [],
+        "searchFields": ["smRegStatus", "smWflowStatus", "smUUID", "nom_modele", "idModel", "idRef", "type_modele", "version_modele", "auteur_modele", "nom_si_bdm", "document_reference", "acronyme_si_bdm", "date_doc_reference", "version_doc_reference", "description_modele", "physical_name", "acteur_principal", "autres_acteurs", "intrants_declencheurs"],
+        "sortFields": ["smRegStatus", "smWflowStatus", "smUUID", "nom_modele", "idModel", "idRef", "type_modele", "version_modele", "auteur_modele", "nom_si_bdm", "document_reference", "acronyme_si_bdm", "date_doc_reference", "version_doc_reference", "description_modele", "physical_name", "acteur_principal", "autres_acteurs", "intrants_declencheurs"],
+        "hiddenFields": ["id"],
+        "readOnlyFields": []
+    },
+    "gridSets": {
+        "__ptType": "custom",
+        "listDisplaySet": [],
+        "filtersSet": [],
+        "sortersSet": []
+    },
+    "formConfig": {
+        "__ptType": "formConfig",
+        "items": [{
+            "__ptType": "fieldset",
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "domaff_modele"
+            }, {
+                "__ptType": "formField",
+                "name": "nom_modele"
+            }]
+        }, {
+            "__ptType": "fieldset",
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "idModel"
+            }, {
+                "__ptType": "formField",
+                "name": "date_derniere_modif_modele"
+            }, {
+                "__ptType": "formField",
+                "name": "acronyme_si_bdm"
+            }, {
+                "__ptType": "formField",
+                "name": "physical_name"
+            }, {
+                "__ptType": "formField",
+                "name": "acteur_principal"
+            }, {
+                "__ptType": "formField",
+                "name": "document_reference"
+            }, {
+                "__ptType": "formField",
+                "name": "auteur_modele"
+            }, {
+                "__ptType": "formField",
+                "name": "date_creation_modele"
+            }, {
+                "__ptType": "formField",
+                "name": "type_modele"
+            }, {
+                "__ptType": "formField",
+                "name": "nom_si_bdm"
+            }, {
+                "__ptType": "formField",
+                "name": "idRef"
+            }, {
+                "__ptType": "formField",
+                "name": "date_doc_reference"
+            }, {
+                "__ptType": "formField",
+                "name": "intrants_declencheurs"
+            }, {
+                "__ptType": "formField",
+                "name": "version_modele"
+            }, {
+                "__ptType": "formField",
+                "name": "version_doc_reference"
+            }, {
+                "__ptType": "formField",
+                "name": "autres_acteurs"
+            }]
+        }, {
+            "__ptType": "fieldset",
+            "fsLayout": "1col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "description_modele"
+            }]
+        }, {
+            "__ptType": "fieldset",
+            "collapsible": true,
+            "title": "Admin",
+            "collapsed": true,
+            "fsLayout": "2col",
+            "items": [{
+                "__ptType": "formField",
+                "name": "smCreatedBy"
+            }, {
+                "__ptType": "formField",
+                "name": "smUUID"
+            }, {
+                "__ptType": "formField",
+                "name": "smCreatedOn"
+            }, {
+                "__ptType": "formField",
+                "name": "smWflowStatus"
+            }, {
+                "__ptType": "formField",
+                "name": "smModifiedOn"
+            }, {
+                "__ptType": "formField",
+                "name": "smOwningTeam"
+            }, {
+                "__ptType": "formField",
+                "name": "smOwningUser"
+            }, {
+                "__ptType": "formField",
+                "name": "smRegStatus"
+            }, {
+                "__ptType": "formField",
+                "name": "smModifiedBy"
+            }]
+        }]
+    },
+    "usrDefProps": {
+        "__ptType": "usrDefProps"
+    },
+    "businessRules": {
+        "__ptType": "businessRules"
+    },
+    "fields": [{
+        "__ptType": "field",
+        "flex": 1,
+        "sortable": true,
+        "name": "__str__",
+        "fkId": "id",
+        "zoomModel": "rai.Modele",
+        "cellLink": true,
+        "header": "Modele",
+        "readOnly": true,
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "acronyme_si_bdm",
+        "searchable": true,
+        "header": "acronyme si bdm",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "acteur_principal",
+        "searchable": true,
+        "header": "acteur principal",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "auteur_modele",
+        "searchable": true,
+        "header": "auteur modele",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "autres_acteurs",
+        "searchable": true,
+        "header": "autres acteurs",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "date_creation_modele",
+        "searchable": true,
+        "header": "date creation modele",
+        "type": "date"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "date_derniere_modif_modele",
+        "searchable": true,
+        "header": "date derniere modif modele",
+        "type": "date"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "date_doc_reference",
+        "searchable": true,
+        "header": "date doc reference",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "vType": "plainText",
+        "sortable": true,
+        "name": "description_modele",
+        "searchable": true,
+        "header": "description modele",
+        "type": "text"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "document_reference",
+        "searchable": true,
+        "header": "document reference",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "zoomModel": "rai.DomaineAffaires",
+        "sortable": true,
+        "name": "domaff_modele",
+        "fkId": "domaff_modele_id",
+        "required": true,
+        "header": "domaff modele",
+        "type": "foreigntext"
+    }, {
+        "__ptType": "field",
+        "name": "id",
+        "header": "ID",
+        "readOnly": true,
+        "hidden": true,
+        "type": "autofield"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "idModel",
+        "searchable": true,
+        "header": "idModel",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "idRef",
+        "searchable": true,
+        "header": "idRef",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "intrants_declencheurs",
+        "searchable": true,
+        "header": "intrants declencheurs",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "nom_modele",
+        "searchable": true,
+        "required": true,
+        "header": "nom modele",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "nom_si_bdm",
+        "searchable": true,
+        "header": "nom si bdm",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "physical_name",
+        "searchable": true,
+        "header": "physical name",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smCreatedBy",
+        "searchable": true,
+        "header": "smCreatedBy",
+        "readOnly": true,
+        "type": "foreigntext"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smCreatedOn",
+        "searchable": true,
+        "header": "smCreatedOn",
+        "readOnly": true,
+        "type": "datetime"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smModifiedBy",
+        "searchable": true,
+        "header": "smModifiedBy",
+        "readOnly": true,
+        "type": "foreigntext"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smModifiedOn",
+        "searchable": true,
+        "header": "smModifiedOn",
+        "readOnly": true,
+        "type": "datetime"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smOwningTeam",
+        "searchable": true,
+        "header": "smOwningTeam",
+        "readOnly": true,
+        "type": "foreigntext"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smOwningUser",
+        "searchable": true,
+        "header": "smOwningUser",
+        "readOnly": true,
+        "type": "foreigntext"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smRegStatus",
+        "searchable": true,
+        "header": "smRegStatus",
+        "readOnly": true,
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smUUID",
+        "searchable": true,
+        "header": "smUUID",
+        "readOnly": true,
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "smWflowStatus",
+        "searchable": true,
+        "header": "smWflowStatus",
+        "readOnly": true,
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "type_modele",
+        "searchable": true,
+        "header": "type modele",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "version_doc_reference",
+        "searchable": true,
+        "header": "version doc reference",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "sortable": true,
+        "name": "version_modele",
+        "searchable": true,
+        "header": "version modele",
+        "type": "string"
+    }, {
+        "__ptType": "field",
+        "fkField": "domaff_modele",
+        "name": "domaff_modele_id",
+        "readOnly": true,
+        "hidden": true,
+        "type": "foreignid"
+    }],
+    "viewCode": "rai.Modele"
+}
