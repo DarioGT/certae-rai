@@ -1,6 +1,6 @@
 {
     "__ptType": "pcl",
-    "updateTime": "2014-10-15 15:31:46",
+    "updateTime": "2014-10-17 12:42:13",
     "description": "Modele",
     "shortTitle": "Modele",
     "viewIcon": "icon-1",
@@ -16,36 +16,42 @@
     }],
     "detailsConfig": [{
         "__ptType": "detailDef",
-        "detailField": "mod_modrac1__pk",
         "conceptDetail": "rai.ModeleRaccordement",
+        "detailField": "mod_modrac1__pk",
         "detailName": "mod_modrac1",
         "menuText": "Mod\u00e8les raccord\u00e9s",
         "masterField": "pk"
     }, {
         "__ptType": "detailDef",
-        "menuText": "Entite.entite_mod",
-        "conceptDetail": "rai.Entite",
         "detailField": "entite_mod__pk",
-        "masterField": "pk",
-        "detailName": "entites"
+        "conceptDetail": "rai.Entite",
+        "detailName": "entites",
+        "menuText": "Entite.entite_mod",
+        "masterField": "pk"
     }],
     "sheetConfig": [{
         "__ptType": "sheetDef",
         "sheetType": "showPrint",
+        "templateBb": "** Start report",
         "templateEr": "<h1> BaseER {{__str__}}</h1><br>",
         "template": "<h1> Base {{__str__}}</h1><br>",
-
-        "templateBb": "** Start report",
         "templateAb": "** End report",
-
         "name": "xxxx",
         "sheetDetails": [{
             "__ptType": "sheetDetail",
             "name": "mod_modrac1",
             "detailName": "mod_modrac1",
+            "templateAb": "</ul><hr>",
             "templateBb": "List of {{detailName}} <ul>",
             "templateEr": "<li> detail er {{__str__}} </li>",
-            "templateAb": "</ul><hr>",
+            "sheetDetails": []
+        }, {
+            "__ptType": "sheetDetail",
+            "name": "mod_modrac2",
+            "detailName": "mod_modrac1",
+            "templateBb": "Table <br><table style='width:100%'><tr> <th>Name</th> <th>xxx</th> <th>yyy</th> </tr> <tr>",
+            "templateEr": "<tr><td>{{__str__}}</td><td>____</td><td>50</td> </tr>",
+            "templateAb": "</table><hr>",
             "sheetDetails": []
         }]
     }],
