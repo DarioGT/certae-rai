@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# This is an auto-generated model module by CeRTAE SoftMachine v13.12dgt
-# for model : "rai"
-# You'll have to do the following manually to clean this up:
-#     * Add specific procedures  (WFlow)
 
 from django.db import models
 from protoLib.models import ProtoModel
@@ -11,18 +7,32 @@ from protoLib.utilsBase import slugify
 from protoLib.fields import JSONField, JSONAwareManager
 
 
+""" Los tipos de documentos son 'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
+
+    COMPOSITION podria corresponder a los arcos entre dos ARTEFACT, 
+                dependiendo el tipo de arco los campos podrian ser diferentes, 
+                luego el tipo de artefacto determinaria el tipo de arcos q pueda manejar 
+                en un proceso pueden ser conexiones, en un modelo relacional puede ser la cardinalidad 
+
+"""
+
 CONCEPTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
 BASE_TYPES = [(s, s) for s in ('string', 'text', 'bool', 'int', 'decimal', 'combo', 'date', 'time')]
 
 
-class RaiType(ProtoModel):
+class DocumentType(ProtoModel):
     """ 
     Definicion de los tipos segun las 3 categorias ( capacidades, artefactos, exigencias )
+    DGT: 1504 El manejo jerarquico podria ser determinado en el tipo 
+        - allowHierarchy,  
+        - childTypes  [ lista de tipos permitidos en los hijos ] 
     """
     concept = models.CharField(blank= False, null= False, max_length= 11, choices= CONCEPTS )
     ctype = models.CharField(blank= False, null= False, max_length= 200)
 
     category = models.CharField(max_length=50, blank=True, null=True)
+
+    notes  = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
     def __unicode__(self):
@@ -33,11 +43,13 @@ class RaiType(ProtoModel):
 
 
 
-class RaiAttribute(ProtoModel):
+class DocAttribute(ProtoModel):
     """ 
     Propiedades segun cada tipo de concepto 
+    DGT: 1504 Si manejara relaciones, podria encadenar diferentes tipos de artefacto 
+         - isReference,  referenceDocument 
     """
-    rtype = models.ForeignKey('RaiType', blank=False, null=False)
+    documentType = models.ForeignKey('DocumentType', blank=False, null=False)
     code = models.CharField(blank=False, null=False, max_length=200)
 
     """baseType, prpLength:  Caracteristicas generales q definen el campo """
@@ -63,16 +75,16 @@ class RaiAttribute(ProtoModel):
     isSensitive = models.BooleanField(default=False)
 
     class Meta:
-        unique_together = ('rtype', 'code' )
+        unique_together = ('documentType', 'code' )
 
     def __unicode__(self):
-        return slugify( self.rtype.concept + '.' + self.rtype.ctype + '.' + self.code)      
+        return slugify( str( self.documentType ) + '.' + self.code)      
 
-    unicode_sort = ('rtype', 'code',)
+    unicode_sort = ('documentType', 'code',)
 
 
 
-class RaiDomain(ProtoModel):
+class Domain(ProtoModel):
     code = models.CharField(blank= False, null= False, max_length= 200)
     description = models.TextField(blank = True, null = True)
 
@@ -86,8 +98,7 @@ class RaiDomain(ProtoModel):
 
 
 
-
-class RaiModel(models.Model):
+class RaiModel(ProtoModel):
     """ Tabla de base para los diferentes tipos de conceptos de rai,  las instancias 
     tendran cada una su propia tabla q heredara de esta, 
     La llamada al menu se hara con el la tabla se hara con :type, este parametro ira 
@@ -96,8 +107,8 @@ class RaiModel(models.Model):
     """
 
     code = models.CharField( max_length=200, null=False, blank=False)
-    domain  = models.ForeignKey('RaiDomain', blank= False, null= False )
-    rtype = models.ForeignKey('RayType', blank=False, null=False)
+    domain  = models.ForeignKey('Domain', blank= False, null= False )
+    documentType = models.ForeignKey('DocumentType', blank=False, null=False)
 
     description = models.TextField(blank = True, null = True)
 
@@ -113,11 +124,12 @@ class RaiModel(models.Model):
 
 
     def __unicode__(self):
-        return slugify( self.rtype.code + '.' + self.code )  
+        return slugify( self.documentType.code + '.' + self.code )  
 
 
     class Meta:
         abstract = True
+        unique_together = ('code',)
 
 
     def getfields(self, *args, **kwargs):

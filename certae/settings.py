@@ -50,8 +50,7 @@ INSTALLED_APPS = (
     'protobase',
     'protoLib',
     'prototype',
-#     'rai',
-    'rai00lib'
+    'rai01ref'
 )
 
 MIDDLEWARE_CLASSES = (
