@@ -31,6 +31,7 @@ class Source(ProtoModel):
         return slugify(self.code)
 
     class Meta:
+        app_label = 'rai01ref'
         unique_together = ('code',)
 
 
@@ -43,6 +44,10 @@ class ArtefactSource(ProtoModel):
 
     def __unicode__(self):
         return 'NoKey'
+
+    class Meta:
+        unique_together = ('source', 'artefact')
+        app_label = 'rai01ref'
 
 
 class ArtefactComposition(ProtoModel):
@@ -57,6 +62,8 @@ class ArtefactComposition(ProtoModel):
     notes = models.TextField(blank = True, null = True)
     description  = models.TextField(blank = True, null = True)
 
+    class Meta:
+        app_label = 'rai01ref'
 
     def __unicode__(self):
         return 'NoKey'
@@ -74,6 +81,7 @@ class ArtefactRequirement(ProtoModel):
 
     class Meta:
         unique_together = ('artefact','requirement',)
+        app_label = 'rai01ref'
 
 
 class ArtefactCapacity(ProtoModel):
@@ -88,6 +96,7 @@ class ArtefactCapacity(ProtoModel):
 
     class Meta:
         unique_together = ('artefact','capacity',)
+        app_label = 'rai01ref'
 
 
 
@@ -104,6 +113,7 @@ class Projet(ProtoModel):
 
     class Meta:
         unique_together = ('domain','code',)
+        app_label = 'rai01ref'
 
 
 
@@ -115,10 +125,11 @@ class ProjectArtefact(ProtoModel):
     description  = models.TextField(blank = True, null = True)
 
     def __unicode__(self):
-        return slugify(str( self.artefacts) +  '.' + str( self.projet))
+        return slugify(str(self.artefact) +  '.' + str( self.projet))
 
     class Meta:
-        unique_together = ('artefacts','projet',)
+        unique_together = ('artefact','projet',)
+        app_label = 'rai01ref'
 
 
 class ProjectCapacity(ProtoModel):
@@ -134,6 +145,7 @@ class ProjectCapacity(ProtoModel):
 
     class Meta:
         unique_together = ('projet','capacity',)
+        app_label = 'rai01ref'
 
 
 class ProjectRequirement(ProtoModel):
@@ -148,4 +160,5 @@ class ProjectRequirement(ProtoModel):
 
     class Meta:
         unique_together = ('projet','requirement',)
+        app_label = 'rai01ref'
 

@@ -39,6 +39,7 @@ class DocumentType(ProtoModel):
         return slugify(self.concept + '.' + self.ctype)
 
     class Meta:
+        app_label = 'rai01ref'
         unique_together = ('concept', 'ctype')
 
 
@@ -75,6 +76,7 @@ class DocAttribute(ProtoModel):
     isSensitive = models.BooleanField(default=False)
 
     class Meta:
+        app_label = 'rai01ref'
         unique_together = ('documentType', 'code' )
 
     def __unicode__(self):
@@ -89,6 +91,7 @@ class Domain(ProtoModel):
     description = models.TextField(blank = True, null = True)
 
     class Meta:
+        app_label = 'rai01ref'
         unique_together = ( 'code', )
 
     def __unicode__(self):
@@ -128,6 +131,7 @@ class RaiModel(ProtoModel):
 
 
     class Meta:
+        app_label = 'rai01ref'
         abstract = True
         unique_together = ('code',)
 
