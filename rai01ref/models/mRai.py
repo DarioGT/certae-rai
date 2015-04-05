@@ -14,6 +14,13 @@ class Artefact(DocModel):
     # la tabla de documento define el valor del documento, el tipo viene en el menu 
     _jDefValueDoc  = 'ARTEFACT'
 
+    protoExt = { 
+        "actions": [
+            { "name": "doBPD" , "selectionMode" : "sinlge" },
+        ],
+    } 
+
+
 
 class Capacity(DocModel):
     refCapacity = models.ForeignKey('Capacity', blank= True, null= True )
@@ -59,9 +66,9 @@ class ArtefactSource(ProtoModel):
 class ArtefactComposition(ProtoModel):
     """ Manejo de arcos, pe. las transiciones en procesos 
     """    
-    containerArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='containerArt_set')
-    inputArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='inputArt_set')
-    outputArt = models.ForeignKey('Artefact', blank= True, null= True, related_name='outputArt_set')
+    containerArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='artefactcomposition_set')
+    inputArt = models.ForeignKey('Artefact', blank= False, null= False, related_name='+')
+    outputArt = models.ForeignKey('Artefact', blank= True, null= True, related_name='+')
 
     condition  = models.TextField(blank = True, null = True)
 

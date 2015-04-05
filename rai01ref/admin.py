@@ -9,7 +9,6 @@ admin.site.register( DocAttribute )
 admin.site.register( DocType )
 admin.site.register( Domain )
 
-admin.site.register( Artefact )
 admin.site.register( Requirement )
 admin.site.register( Capacity )
 admin.site.register( Source )
@@ -23,3 +22,11 @@ admin.site.register( Projet )
 # admin.site.register( ProjectArtefact )
 # admin.site.register( ProjectCapacity )
 # admin.site.register( ProjectRequirement  )
+
+
+from actions import doBPD
+
+class MyArtefacAdmin( admin.ModelAdmin ):
+    actions = [ doBPD  ]
+
+admin.site.register( Artefact, MyArtefacAdmin )
