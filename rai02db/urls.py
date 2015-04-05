@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from rai.raccordement import getModeleRaccordement, createRaccordement, deleteRaccordement, listRaccordement
+from rai02db.raccordement import getModeleRaccordement, createRaccordement, deleteRaccordement, listRaccordement
 
 urlpatterns = patterns('',
     url('getModeleRaccordement/$', getModeleRaccordement),

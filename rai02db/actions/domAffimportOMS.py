@@ -5,7 +5,7 @@ from xml.etree.ElementTree import ElementTree
 
 
 # Import Database class
-from rai.models import  Modele, Entite, ElementDonnee, Relation, ModeleRaccordement, Raccordement
+from rai02db.models import  Modele, Entite, ElementDonnee, Relation, ModeleRaccordement, Raccordement
 from protoLib.protoActionEdit import setSecurityInfo
 
 from protoLib.utils.logger import protoLog

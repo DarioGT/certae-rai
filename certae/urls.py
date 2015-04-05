@@ -9,10 +9,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^main$', TemplateView.as_view(template_name='index.html')),
-    url(r'^debug$', TemplateView.as_view(template_name='rai-debug.html')),
+    url(r'^debug$', TemplateView.as_view(template_name='rai02db-debug.html')),
 
     url(r'^protoDiagram/', include('dbDesigner.urls')),
-    url(r'^rai/', include('rai.urls')),
+    url(r'^rai02db/', include('rai02db.urls')),
     
     
     #    Use for production instalation and for load json configuration files

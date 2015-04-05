@@ -24,17 +24,17 @@ def doFindReplace(modeladmin, request, queryset, parameters):
 
 
 def doImportRAI( modeladmin, request, queryset, parameters):
-    from rai.actions.domAffairesActions import doRaiActions
+    from rai02db.actions.domAffairesActions import doRaiActions
     return doRaiActions( modeladmin, request, queryset, parameters, 'IMPORT' )
 
 
 def doMatchRAI( modeladmin, request, queryset, parameters):
-    from rai.actions.domAffairesActions import doRaiActions
+    from rai02db.actions.domAffairesActions import doRaiActions
     return doRaiActions( modeladmin, request, queryset, parameters, 'MATCH' )
 
 
 def doMatrixRacc( modelAdmin,request, queryset, detKeys, parameters):
-    from rai.actions.racMatrix import doMatrixRaccordement
+    from rai02db.actions.racMatrix import doMatrixRaccordement
 
     try:
         return doMatrixRaccordement(  modelAdmin, request, queryset, detKeys, parameters  )
@@ -57,7 +57,7 @@ def doAddModel(modeladmin, request, queryset, parameters):
     if len(parameters) != 2:
         return  {'success':False, 'message' : 'required: entite_mod, entite_mod_id' }
 
-    from rai.actions.entiteAddModel import extractModel
+    from rai02db.actions.entiteAddModel import extractModel
 
     try:
         extractModel(request, queryset, parameters)

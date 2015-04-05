@@ -4,20 +4,26 @@ from django.db import models
 from protoLib.models import ProtoModel
 from protoLib.utilsBase import slugify
 
-from rai01ref.models.mBase import RaiModel, Domain 
+from rai01ref.models.mBase import DocModel, Domain 
 
 
-class Artefact(RaiModel):
+class Artefact(DocModel):
     refArtefact = models.ForeignKey('Artefact', blank= True, null= True )
 
+    # siempre sera un filtro de dos niveles, documento y tipo, 
+    # la tabla de documento define el valor del documento, el tipo viene en el menu 
+    _jDefValueDoc  = 'ARTEFACT'
 
-class Capacity(RaiModel):
+
+class Capacity(DocModel):
     refCapacity = models.ForeignKey('Capacity', blank= True, null= True )
 
+    _jDefValueDoc  = 'CAPACITY'
 
-class Requirement(RaiModel):
+class Requirement(DocModel):
     refRequirement = models.ForeignKey('Requirement', blank= True, null= True )
 
+    _jDefValueDoc  = 'REQUIREMENT'
 
 
 class Source(ProtoModel):
@@ -66,7 +72,10 @@ class ArtefactComposition(ProtoModel):
         app_label = 'rai01ref'
 
     def __unicode__(self):
-        return 'NoKey'
+        try: 
+            endNode = self.outputArt.code 
+        except: endNode = "/*"
+        return '{0} -> {1}'.format( slugify( self.inputArt.code ), endNode ) 
 
 
 class ArtefactRequirement(ProtoModel):

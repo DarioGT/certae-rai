@@ -6,6 +6,8 @@ from protoLib.models import ProtoModel
 from protoLib.utilsBase import slugify
 from protoLib.fields import JSONField, JSONAwareManager
 
+from protobase.protoRules import  BASE_TYPES, CRUD_TYPES, docProperty2Field
+
 
 """ Los tipos de documentos son 'ARTEFACT', 'CAPACITY', 'REQUIREMENT'
 
@@ -16,19 +18,18 @@ from protoLib.fields import JSONField, JSONAwareManager
 
 """
 
-CONCEPTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
-BASE_TYPES = [(s, s) for s in ('string', 'text', 'bool', 'int', 'decimal', 'combo', 'date', 'time')]
+DOCUMENTS = [(s, s) for s in ('ARTEFACT', 'CAPACITY', 'REQUIREMENT')]
 
 
-class DocumentType(ProtoModel):
+class DocType(ProtoModel):
     """ 
     Definicion de los tipos segun las 3 categorias ( capacidades, artefactos, exigencias )
     DGT: 1504 El manejo jerarquico podria ser determinado en el tipo 
         - allowHierarchy,  
         - childTypes  [ lista de tipos permitidos en los hijos ] 
     """
-    concept = models.CharField(blank= False, null= False, max_length= 11, choices= CONCEPTS )
-    ctype = models.CharField(blank= False, null= False, max_length= 200)
+    document = models.CharField(blank= False, null= False, max_length= 11, choices= DOCUMENTS )
+    dtype = models.CharField(blank= False, null= False, max_length= 200)
 
     category = models.CharField(max_length=50, blank=True, null=True)
 
@@ -36,21 +37,21 @@ class DocumentType(ProtoModel):
     description  = models.TextField(blank = True, null = True)
 
     def __unicode__(self):
-        return slugify(self.concept + '.' + self.ctype)
+        return slugify(self.document + '.' + self.dtype)
 
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('concept', 'ctype')
+        unique_together = ('document', 'dtype')
 
 
 
 class DocAttribute(ProtoModel):
     """ 
-    Propiedades segun cada tipo de concepto 
+    Propiedades segun cada tipo de documento 
     DGT: 1504 Si manejara relaciones, podria encadenar diferentes tipos de artefacto 
          - isReference,  referenceDocument 
     """
-    documentType = models.ForeignKey('DocumentType', blank=False, null=False)
+    docType = models.ForeignKey('DocType', blank=False, null=False)
     code = models.CharField(blank=False, null=False, max_length=200)
 
     """baseType, prpLength:  Caracteristicas generales q definen el campo """
@@ -67,22 +68,23 @@ class DocAttribute(ProtoModel):
     """prpChoices:  Lista de valores CSV ( idioma?? ) """ 
     prpChoices = models.TextField(blank=True, null=True)
 
-    description = models.TextField(blank=True, null=True)
-
     """isRequired: tiene q ver con el llenado de datos"""
     isRequired = models.BooleanField(default=False)
 
     """isSensitive: Should increase security level """  
     isSensitive = models.BooleanField(default=False)
 
+    crudType = models.CharField(blank=True, null=True, max_length=20, choices=CRUD_TYPES)
+    description = models.TextField(blank=True, null=True)
+
     class Meta:
         app_label = 'rai01ref'
-        unique_together = ('documentType', 'code' )
+        unique_together = ('docType', 'code' )
 
     def __unicode__(self):
-        return slugify( str( self.documentType ) + '.' + self.code)      
+        return slugify( str( self.docType ) + '.' + self.code)      
 
-    unicode_sort = ('documentType', 'code',)
+    unicode_sort = ('docType', 'code',)
 
 
 
@@ -101,8 +103,8 @@ class Domain(ProtoModel):
 
 
 
-class RaiModel(ProtoModel):
-    """ Tabla de base para los diferentes tipos de conceptos de rai,  las instancias 
+class DocModel(ProtoModel):
+    """ Tabla de base para los diferentes tipos de documentos de rai02db,  las instancias 
     tendran cada una su propia tabla q heredara de esta, 
     La llamada al menu se hara con el la tabla se hara con :type, este parametro ira 
     a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden 
@@ -110,8 +112,8 @@ class RaiModel(ProtoModel):
     """
 
     code = models.CharField( max_length=200, null=False, blank=False)
-    domain  = models.ForeignKey('Domain', blank= False, null= False )
-    documentType = models.ForeignKey('DocumentType', blank=False, null=False)
+    domain  = models.ForeignKey('Domain', blank= False, null= False, related_name = '+') 
+    dtype = models.CharField(blank= False, null= False, max_length= 200, editable = False )
 
     description = models.TextField(blank = True, null = True)
 
@@ -122,12 +124,13 @@ class RaiModel(ProtoModel):
     protoExt = { 'jsonField' : 'info' }
 
 
-    # Indica q debe leer los campos de la forma al momento de configurar el modelo o cargar campos en la meta
-    _getFields = True
+    # User Defined Document 
+    _uddObject = True
+    _jField = 'info'
 
 
     def __unicode__(self):
-        return slugify( self.documentType.code + '.' + self.code )  
+        return slugify( self.dtype + '.' + self.code )  
 
 
     class Meta:
@@ -135,9 +138,17 @@ class RaiModel(ProtoModel):
         abstract = True
         unique_together = ('code',)
 
-
-    def getfields(self, *args, **kwargs):
+    @staticmethod
+    def getJfields( dBase, dtype ):
         """ Busca los campos en RaiAttribute y los retorna para completar el modelo 
         """ 
-        return {'campo1' : 'xxx'}
 
+        fDict = {}
+        jFields = DocAttribute.objects.filter(docType__document = dBase , docType__dtype = dtype )
+
+        for pProperty in jFields:
+
+            fName  =  slugify( pProperty.code ) 
+            fDict[ 'info__' + fName  ] = docProperty2Field( fName, pProperty.__dict__ , 'info'  )
+
+        return fDict

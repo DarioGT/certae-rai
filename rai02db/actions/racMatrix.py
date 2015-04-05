@@ -20,7 +20,7 @@ def doMatrixRaccordement(modelAdmin, request, selectedKeys, detKeys, parameters)
 			sAux = sAux + ',"' + smart_unicode(e) + '"'
 		return sAux[1:] + '\n'
 
-	from rai.models import ModeleRaccordement, Raccordement 
+	from rai02db.models import ModeleRaccordement, Raccordement 
 
 	# Definicion de las cols 
 	matrixDef = ['MR', 'MR_ENT', 'MR_EDN' ]
