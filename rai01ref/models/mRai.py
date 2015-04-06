@@ -18,8 +18,10 @@ class Artefact(DocModel):
         "actions": [
             { "name": "doBPD" , "selectionMode" : "sinlge" },
         ],
+        "gridConfig" : {
+            "listDisplay": [ "code", "description", ],
+        },
     } 
-
 
 
 class Capacity(DocModel):
@@ -27,11 +29,22 @@ class Capacity(DocModel):
 
     _jDefValueDoc  = 'CAPACITY'
 
+    protoExt = { 
+        "gridConfig" : {
+            "listDisplay": [ "code", "description", ],
+        },
+    } 
+
 class Requirement(DocModel):
     refRequirement = models.ForeignKey('Requirement', blank= True, null= True )
 
     _jDefValueDoc  = 'REQUIREMENT'
 
+    protoExt = { 
+        "gridConfig" : {
+            "listDisplay": [ "code", "description", ],
+        },
+    } 
 
 class Source(ProtoModel):
     code = models.CharField(blank= False, null= False, max_length= 200)

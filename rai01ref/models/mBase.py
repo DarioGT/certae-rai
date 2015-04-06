@@ -151,7 +151,7 @@ class DocModel(ProtoModel):
 
     code = models.CharField( max_length=200, null=False, blank=False)
     domain  = models.ForeignKey('Domain', blank= True, null= True, related_name = '+') 
-    dtype = models.CharField(blank= False, null= False, max_length= 200, editable = False )
+    dtype = models.CharField(blank= False, null= False, max_length= 200 )
 
     description = models.TextField(blank = True, null = True)
 
@@ -166,12 +166,6 @@ class DocModel(ProtoModel):
     _uddObject = True
     _jField = 'info'
 
-
-    protoExt = {
-        "gridConfig" : {
-            "listDisplay": [ "code", "description", ],
-        }
-    }
 
     def __unicode__(self):
         return slugify( self.dtype + '.' + self.code )  
