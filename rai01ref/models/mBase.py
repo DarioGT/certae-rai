@@ -44,6 +44,39 @@ class DocType(ProtoModel):
         unique_together = ('document', 'dtype')
 
 
+    protoExt = {
+        "actions": [
+            { "name": "doRaiMenu" , "selectionMode" : "multiple" },
+        ],
+        "gridConfig" : {
+            "listDisplay": [ "document", "dtype", "description", "__str__",],
+            "others": {
+                "filtersSet": [
+                {
+                    "name": "Artefacts",
+                    "customFilter": [{
+                        "property": "document",
+                        "filterStmt": "^ARTERFACT"
+                    }]
+                },{
+                    "name": "Capacities",
+                    "customFilter": [{
+                        "property": "document",
+                        "filterStmt": "^CAPACITY"
+                    }]
+                },{
+                    "name": "Requirements",
+                    "customFilter": [{
+                        "property": "document",
+                        "filterStmt": "^REQUIREMENT"
+                    }]
+                }
+                ],
+            }
+        }
+    }
+
+
 
 class DocAttribute(ProtoModel):
     """ 
@@ -86,6 +119,11 @@ class DocAttribute(ProtoModel):
 
     unicode_sort = ('docType', 'code',)
 
+    protoExt = {
+        "gridConfig" : {
+            "listDisplay": [ "docType", "code", "description", ],
+        }
+    }
 
 
 class Domain(ProtoModel):
@@ -112,7 +150,7 @@ class DocModel(ProtoModel):
     """
 
     code = models.CharField( max_length=200, null=False, blank=False)
-    domain  = models.ForeignKey('Domain', blank= False, null= False, related_name = '+') 
+    domain  = models.ForeignKey('Domain', blank= True, null= True, related_name = '+') 
     dtype = models.CharField(blank= False, null= False, max_length= 200, editable = False )
 
     description = models.TextField(blank = True, null = True)
@@ -128,6 +166,12 @@ class DocModel(ProtoModel):
     _uddObject = True
     _jField = 'info'
 
+
+    protoExt = {
+        "gridConfig" : {
+            "listDisplay": [ "code", "description", ],
+        }
+    }
 
     def __unicode__(self):
         return slugify( self.dtype + '.' + self.code )  

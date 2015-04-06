@@ -6,7 +6,6 @@ from models import Projet, ProjectArtefact, ProjectCapacity, ProjectRequirement
 
 
 admin.site.register( DocAttribute )
-admin.site.register( DocType )
 admin.site.register( Domain )
 
 admin.site.register( Requirement )
@@ -25,8 +24,14 @@ admin.site.register( Projet )
 
 
 from actions import doBPD
-
-class MyArtefacAdmin( admin.ModelAdmin ):
+class MyArtefac( admin.ModelAdmin ):
     actions = [ doBPD  ]
 
-admin.site.register( Artefact, MyArtefacAdmin )
+admin.site.register( Artefact, MyArtefac  )
+
+
+from actions import doRaiMenu
+class MyDocType( admin.ModelAdmin ):
+    actions = [ doRaiMenu  ]
+
+admin.site.register( DocType, MyDocType )

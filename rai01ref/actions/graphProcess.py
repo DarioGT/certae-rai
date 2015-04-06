@@ -22,12 +22,12 @@ class GraphProcess():
         self.dotSource += 'end [label=" ",shape=circle,width=0.3,style=bold]\n'
 
 
-    def getDiagramDefinition(self, diagramSet):
+    def getDiagramDefinition(self, queryset):
         
         self.diagrams = []
         self.arcs = []
         
-        for pDiag in diagramSet:
+        for pDiag in queryset:
             
             gDiagram = {
                 'code': getClassName(pDiag.code) ,

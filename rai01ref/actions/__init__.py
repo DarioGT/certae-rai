@@ -54,3 +54,20 @@ def doBPD(modeladmin, request, queryset, parameters):
     return  {'success':True , 'message' : fileName,  'fileName' : fileName }
 
 
+ 
+def doRaiMenu(modeladmin, request, queryset, parameters):
+    """ 
+    Genera el menu de rai 
+    """
+
+#   El QSet viene con la lista de Ids  
+    if queryset.count() < 1:
+        return  {'success':False, 'message' : 'No record selected' }
+
+    from buildRaiMenu import doBuildRaiMenu
+    doBuildRaiMenu( request, queryset )
+
+
+    # TODO add returnMsg
+    return {'success':True, 'message' : 'Ok' }
+
