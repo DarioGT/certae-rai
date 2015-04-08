@@ -79,8 +79,8 @@ def extractModel(request, queryset, parameters):
     userProfile = getUserProfile( request.user, 'prototype', '' )
 
     # get destination model and project
-    from rai02db.models import Modele,  Entite, ElementDonnee, Relation  
-    from rai02db.models import ModeleRaccordement, Raccordement 
+    from rai.models import Modele,  Entite, ElementDonnee, Relation  
+    from rai.models import ModeleRaccordement, Raccordement 
     
     lModele = Modele.objects.get( id = parameters[1]['value']  )
 

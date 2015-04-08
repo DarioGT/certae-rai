@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'protobase',
     'protoLib',
     'prototype',
-#   'rai02db',
+#   'rai',
     'rai01ref',
 )
 
@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'certae.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PPATH, 'db','testproto.db'),
+        'NAME': os.path.join(PPATH, 'db','raiCarra.db'),
     }
 }
 

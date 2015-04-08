@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^debug$', TemplateView.as_view(template_name='rai-debug.html')),
 
     url(r'^protoDiagram/', include('dbDesigner.urls')),
-    url(r'^rai/', include('rai02db.urls')),
+    url(r'^rai/', include('rai.urls')),
     
     
     #    Use for production instalation and for load json configuration files

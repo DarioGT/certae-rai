@@ -3,7 +3,6 @@
 from django.db import models
 from protoLib.models import ProtoModel
 from protoLib.utilsBase import slugify
-
 from rai01ref.models.mBase import DocModel, Domain 
 
 
@@ -15,6 +14,7 @@ class Artefact(DocModel):
     _jDefValueDoc  = 'ARTEFACT'
 
     protoExt = { 
+        "jsonField" : "info", 
         "actions": [
             { "name": "doBPD" , "selectionMode" : "sinlge" },
         ],
@@ -30,6 +30,7 @@ class Capacity(DocModel):
     _jDefValueDoc  = 'CAPACITY'
 
     protoExt = { 
+        "jsonField" : "info", 
         "gridConfig" : {
             "listDisplay": [ "code", "description", ],
         },
@@ -41,6 +42,7 @@ class Requirement(DocModel):
     _jDefValueDoc  = 'REQUIREMENT'
 
     protoExt = { 
+        "jsonField" : "info", 
         "gridConfig" : {
             "listDisplay": [ "code", "description", ],
         },

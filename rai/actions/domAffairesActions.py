@@ -28,7 +28,7 @@ def doRaiActions( modeladmin, request, queryset, parameters, action ):
     from protoLib.protoAuth import getUserProfile
     userProfile = getUserProfile( request.user, 'prototype', '' )
 
-    from rai02db.actions.domAffimportOMS import importOMS_RAI
+    from rai.actions.domAffimportOMS import importOMS_RAI
     cOMS = importOMS_RAI( userProfile, queryset[0]  )
 
     if action == 'IMPORT':

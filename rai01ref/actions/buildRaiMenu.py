@@ -34,7 +34,7 @@ def doBuildRaiMenu( request, queryset ):
 
     for pDoc in queryset:
         model_dict = {
-            'viewCode': 'rai01ref.{0}.{1}'.format( pDoc.document , pDoc.dtype ).lower(), 
+            'viewCode': 'rai01ref.{0}.{1}'.format( pDoc.document , str( pDoc.pk ) ).lower(), 
             'text': pDoc.dtype ,
             'index': Ix ,
             'iconCls': viewIcon ,

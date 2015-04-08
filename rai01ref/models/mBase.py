@@ -141,25 +141,25 @@ class Domain(ProtoModel):
 
 
 
+""" Tabla de base para los diferentes tipos de documentos de rai,  las instancias 
+tendran cada una su propia tabla q heredara de esta, 
+La llamada al menu se hara con el la tabla se hara con :type, este parametro ira 
+a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden 
+a la definicion del tipo  
+"""
 class DocModel(ProtoModel):
-    """ Tabla de base para los diferentes tipos de documentos de rai02db,  las instancias 
-    tendran cada una su propia tabla q heredara de esta, 
-    La llamada al menu se hara con el la tabla se hara con :type, este parametro ira 
-    a la seleccion de la tabla,  para la definicion del modelo se buscaran los campos q corresponden 
-    a la definicion del tipo  
-    """
+
+    """El docType_id determina el grupo ( filtro y valor por defecto )"""
+    docType = models.ForeignKey('DocType', blank=False, null=False, related_name = '+')
 
     code = models.CharField( max_length=200, null=False, blank=False)
     domain  = models.ForeignKey('Domain', blank= True, null= True, related_name = '+') 
-    dtype = models.CharField(blank= False, null= False, max_length= 200 )
 
     description = models.TextField(blank = True, null = True)
-
 
     """ Guarda la definicion de campos leida de RaiAttribute """
     info = JSONField(default={})
     objects = JSONAwareManager(json_fields=['info'])
-    protoExt = { 'jsonField' : 'info' }
 
 
     # User Defined Document 
@@ -168,25 +168,33 @@ class DocModel(ProtoModel):
 
 
     def __unicode__(self):
-        return slugify( self.dtype + '.' + self.code )  
+        return slugify( self.docType.dtype + '.' + self.code )  
 
 
     class Meta:
         app_label = 'rai01ref'
         abstract = True
-        unique_together = ('code',)
+        unique_together = ('docType','code' )
 
     @staticmethod
-    def getJfields( dBase, dtype ):
-        """ Busca los campos en RaiAttribute y los retorna para completar el modelo 
+    def getJfields( idType ):
+        """ Busca los campos y el titulo para completar el modelo 
         """ 
 
         fDict = {}
-        jFields = DocAttribute.objects.filter(docType__document = dBase , docType__dtype = dtype )
+
+        try: 
+            docType = DocType.objects.get( pk = idType )
+        except: 
+            return fDict, ''
+
+
+        jFields = DocAttribute.objects.filter( docType = idType )
 
         for pProperty in jFields:
 
-            fName  =  slugify( pProperty.code ) 
-            fDict[ 'info__' + fName  ] = docProperty2Field( fName, pProperty.__dict__ , 'info'  )
+            fCode =  slugify( pProperty.code ) 
+            fDict[ 'info__' + fCode  ] = docProperty2Field( fCode, pProperty.__dict__ , 'info'  )
 
-        return fDict
+        """Retorna los campos y el titulo"""
+        return fDict, docType.dtype 

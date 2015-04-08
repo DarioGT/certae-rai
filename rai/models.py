@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # This is an auto-generated model module by CeRTAE SoftMachine v13.12dgt
-# for model : "rai02db"
+# for model : "rai"
 # You'll have to do the following manually to clean this up:
 #     * Add specific procedures  (WFlow)
 
@@ -73,7 +73,7 @@ class Modele(ProtoModel):
             "detailName": "mod_modrac1",
             "detailField": "mod_modrac1__pk",
             "__ptType": "detailDef",
-            "conceptDetail": "rai02db.ModeleRaccordement",
+            "conceptDetail": "rai.ModeleRaccordement",
             "menuText": "Modèles raccordés",
             "masterField": "pk"
         }]
@@ -105,7 +105,7 @@ class Entite(ProtoModel):
                  {"name" : "entite_mod",
                   "type" : "foreigntext",
                   "header": "entite mod",
-                  "zoomModel": "rai02db.Modele",
+                  "zoomModel": "rai.Modele",
                   "fkId": "entite_mod_id",
                   "required": True,
                   "tooltip" : "target model"

@@ -2,7 +2,7 @@
 
 from django.http import HttpResponse
 from protoLib.utilsWeb import JsonError
-from rai02db.models import ModeleRaccordement, Raccordement, ElementDonnee
+from rai.models import ModeleRaccordement, Raccordement, ElementDonnee
 
 import json
 from datetime import datetime
