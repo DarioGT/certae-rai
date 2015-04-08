@@ -7,7 +7,7 @@ from rai01ref.models.mBase import DocModel, Domain
 
 
 class Artefact(DocModel):
-    refArtefact = models.ForeignKey('Artefact', blank= True, null= True )
+    refArtefact = models.ForeignKey('Artefact', blank= True, null= True, related_name='+' )
 
     # siempre sera un filtro de dos niveles, documento y tipo, 
     # la tabla de documento define el valor del documento, el tipo viene en el menu 
@@ -25,7 +25,7 @@ class Artefact(DocModel):
 
 
 class Capacity(DocModel):
-    refCapacity = models.ForeignKey('Capacity', blank= True, null= True )
+    refCapacity = models.ForeignKey('Capacity', blank= True, null= True, related_name='+' )
 
     _jDefValueDoc  = 'CAPACITY'
 
@@ -37,7 +37,7 @@ class Capacity(DocModel):
     } 
 
 class Requirement(DocModel):
-    refRequirement = models.ForeignKey('Requirement', blank= True, null= True )
+    refRequirement = models.ForeignKey('Requirement', blank= True, null= True, related_name='+' )
 
     _jDefValueDoc  = 'REQUIREMENT'
 

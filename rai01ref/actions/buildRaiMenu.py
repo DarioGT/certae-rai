@@ -2,7 +2,7 @@
 
 import json
 
-from protoLib.models import CustomDefinition
+from protoLib.models import CustomDefinition, ProtoDefinition 
 from protoLib.protoAuth import getUserProfile
 
 DOCUMENTS = ( 'ARTEFACT', 'CAPACITY', 'REQUIREMENT' ) 
@@ -33,8 +33,10 @@ def doBuildRaiMenu( request, queryset ):
         Ix +=1 
 
     for pDoc in queryset:
+
+        viewCode = 'rai01ref.{0}.{1}'.format( pDoc.document , str( pDoc.pk ) ).lower()
         model_dict = {
-            'viewCode': 'rai01ref.{0}.{1}'.format( pDoc.document , str( pDoc.pk ) ).lower(), 
+            'viewCode': viewCode, 
             'text': pDoc.dtype ,
             'index': Ix ,
             'iconCls': viewIcon ,
@@ -43,6 +45,11 @@ def doBuildRaiMenu( request, queryset ):
         Ix +=1 
 
         lMenu[ pDoc.document ]['children'].append( model_dict  )  
+
+
+        # Borra la anterior definicion  
+        ProtoDefinition.objects.filter( code=viewCode ).delete()
+
 
 #-- Lectura de la Db ------------------------------------------------------------- 
 
@@ -60,6 +67,13 @@ def doBuildRaiMenu( request, queryset ):
 
 
 #-- Update de la Db ------------------------------------------------------------- 
+
+    try:
+        raiMenu = menuData[0]
+        if unicode( raiMenu['text'] ) == unicode( 'RAI MENU' ): 
+            raiMenu = menuData.pop(0)
+    except : pass 
+
 
     raiMenu = {
             'text': 'RAI MENU'  ,
